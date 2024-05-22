@@ -1,5 +1,5 @@
 # tcdd-cli
-Get Number of Empty Seats from Turkish Train API / Tren Bos Koltuk Sorgulama Araci 
+Get Number of Empty Seats from Turkish Train API
 
 <img src="/demo.png" alt="img" align="center" width=50% height=50%>
 
