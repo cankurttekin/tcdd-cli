@@ -11,24 +11,21 @@ cat << "EOF"
    | $$ | $$    $$| $$  | $$| $$  | $$      | $$    $$| $$       | $$  
    | $$ |  $$$$$$/| $$$$$$$/| $$$$$$$/      |  $$$$$$/| $$$$$$$$/$$$$$$
    |__/  \______/ |_______/ |_______/        \______/ |________/______/
-                                                                       
-                                                                       
-                                                                                                                                                                  
+                                                                        
 EOF
-    echo "Tren API Sorgu CLI Aracı"
-    echo "BU YAZILIMIN TÜRKİYE CUMHURİYETİ DEVLET DEMİRYOLLARI İLE HERHANGİ BİR İLİŞKİSİ YOKTUR."
+    echo "	Disclaimer: This is not an official software and has no affiliation with the State Railways Of The Republic of Turkiye."
+    echo "	Bilgilendirme: Türkiye Cumhuriyeti Devlet Demiryolları ile herhangi bir ilişkisi yoktur."
     echo ""
-    echo "Turkish Train API CLI Tool"
-    echo "THIS IS NOT AN OFFICIAL SOFTWARE AND HAS NO AFFILIATION WITH THE STATE RAILWAYS OF THE REPUBLIC OF TURKIYE."
+    echo "	Interrupt to exit (CTRL+C)"
     echo ""
 }
 
 # Function to prompt for parameters
 prompt_parameters() {
     # Prompt for departure date
-    read -p "Enter departure date and time (YYYY-MM-DDTHH:MM:SS) / Kalkış tarihini ve saati girin (YYYY-AA-GGTSsaat:dk:sn): " gidisTarih
+    read -p "Enter departure date and time (ex. 2024-09-23T00:00:00): " gidisTarih
 
-    # Run Python script to fetch station list and allow user to select stations
+    # Fetch station list and allow user to select stations
     echo "Fetching station list from TCDD API..."
     python3 train.py "$gidisTarih"
 }

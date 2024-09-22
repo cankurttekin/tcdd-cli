@@ -28,7 +28,7 @@ class TCDDAPIClient:
             "dil":1,
             "tarih":"Nov 10, 2011 12:00:00 AM",
             "satisSorgu":True
-            }
+        }
         response = requests.post(self.stations_endpoint, headers=self.headers, json=body, cookies=self.cookie)
         if response.status_code == 200:
             return response.json().get("istasyonBilgileriList", [])
@@ -76,7 +76,7 @@ def parse_args():
 
 def notify_user():
     print("\a")  # Trigger beep sound
-    print("Seats available!")
+    print(">>>>>>>>>>>>Seats available!")
     
 def main():
     args = parse_args()
@@ -108,26 +108,29 @@ def main():
             trip_list = data.get("seferSorgulamaSonucList")
             if trip_list is not None:
                 for trip in trip_list:
+                    #available_empty_seats = 0
                     departure_date = trip.get("binisTarih")
                     vagon_tipleri = trip.get("vagonTipleriBosYerUcret", [])
                     for vagon in vagon_tipleri:
-                        kalan_sayi = vagon.get("kalanSayi")
-                        print(f"Binis Tarih: {departure_date}, Kalan Sayi: {kalan_sayi}")
-                        
-                        # Alert when seats are available
-                        if kalan_sayi > 0:
+                        disabled_seat_count = vagon.get("kalanEngelliKoltukSayisi", 0)
+                        business_seat_count = vagon.get("kalanYatakSayisi", 0)
+                        empty_seat_count = vagon.get("kalanSayi", 0) - disabled_seat_count - business_seat_count
+
+                        #kalan_sayi = vagon.get("kalanSayi")
+                        if empty_seat_count > 0:
                             notify_user()
+                            print(f"Date: {departure_date}, Seats: {empty_seat_count}, Disabled: {disabled_seat_count}, Business: {business_seat_count} ")
+                            
             else:
-                print("No seferSorgulamaSonucList found in the response.")
+                print("No trip found.")
         else:
             print(f"Request failed with status code {response.status_code}")
             print(f"Response: {response.text}")
 
         # Sleep for random seconds before making the next request
-        sleep_time = random.randint(15, 60)
-        print(f"Waiting {sleep_time} seconds before next request")
+        sleep_time = random.randint(1, 60)
+        print(f"============Waiting {sleep_time} seconds before next request============")
         time.sleep(sleep_time)
-        
 
 if __name__ == "__main__":
     main()
