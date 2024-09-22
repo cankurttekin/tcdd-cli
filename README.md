@@ -1,7 +1,7 @@
 # tcdd-cli
 Get Number of Empty Seats from Turkish Train API
 
-<img src="/demo.png" alt="img" align="center" width=50% height=50%>
+<img src="/demo.png" alt="img" align="center" width=90%>
 
 ```
 chmod +x tcdd-cli.sh
