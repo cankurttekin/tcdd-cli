@@ -1,6 +1,9 @@
 import argparse
 import requests
 from datetime import datetime
+import time
+import os
+import random
 
 class TCDDAPIClient:
     def __init__(self):
@@ -15,6 +18,7 @@ class TCDDAPIClient:
         self.cookie = {
             "JSESSIONID": "576DCF37FCB434F6B044713AC044E28A"
         }
+        
     def format_date(self, date_str):
         return datetime.strptime(date_str, "%Y-%m-%dT%H:%M:%S").strftime("%b %d, %Y %I:%M:%S %p")
         
@@ -60,7 +64,6 @@ def display_stations(stations):
     for i, station in enumerate(stations, 1):
         print(f"{i}. {station['istasyonAdi']}, {station['stationViewName']} (ID: {station['istasyonId']})")
 
-
 def select_station(stations, prompt):
     display_stations(stations)
     choice = int(input(f"{prompt} (Enter number): ")) - 1
@@ -71,6 +74,10 @@ def parse_args():
     parser.add_argument("gidisTarih", help="Departure date and time in format 'YYYY-MM-DDTHH:MM:SS'")
     return parser.parse_args()
 
+def notify_user():
+    print("\a")  # Trigger beep sound
+    print("Seats available!")
+    
 def main():
     args = parse_args()
     client = TCDDAPIClient()
@@ -86,30 +93,41 @@ def main():
     print("\nSelect arrival station:")
     arrival = select_station(stations, "Arrival station")
     
-    # Make API request with selected stations
-    response = client.fetch_trips(
-        departure["istasyonAdi"],
-        arrival["istasyonAdi"],
-        departure["istasyonId"],
-        arrival["istasyonId"],
-        args.gidisTarih
-    )
+    # Continuous loop to keep checking for available seats
+    while True:
+        response = client.fetch_trips(
+            departure["istasyonAdi"],
+            arrival["istasyonAdi"],
+            departure["istasyonId"],
+            arrival["istasyonId"],
+            args.gidisTarih
+        )
 
-    if response.status_code == 200:
-        data = response.json()
-        trip_list = data.get("seferSorgulamaSonucList")
-        if trip_list is not None:
-            for trip in trip_list:
-                departure_date = trip.get("binisTarih")
-                vagon_tipleri = trip.get("vagonTipleriBosYerUcret", [])
-                for vagon in vagon_tipleri:
-                    kalan_sayi = vagon.get("kalanSayi")
-                    print(f"Binis Tarih: {departure_date}, Kalan Sayi: {kalan_sayi}")
+        if response.status_code == 200:
+            data = response.json()
+            trip_list = data.get("seferSorgulamaSonucList")
+            if trip_list is not None:
+                for trip in trip_list:
+                    departure_date = trip.get("binisTarih")
+                    vagon_tipleri = trip.get("vagonTipleriBosYerUcret", [])
+                    for vagon in vagon_tipleri:
+                        kalan_sayi = vagon.get("kalanSayi")
+                        print(f"Binis Tarih: {departure_date}, Kalan Sayi: {kalan_sayi}")
+                        
+                        # Alert when seats are available
+                        if kalan_sayi > 0:
+                            notify_user()
+            else:
+                print("No seferSorgulamaSonucList found in the response.")
         else:
-            print("No seferSorgulamaSonucList found in the response.")
-    else:
-        print(f"Request failed with status code {response.status_code}")
-        print(f"Response: {response.text}")
+            print(f"Request failed with status code {response.status_code}")
+            print(f"Response: {response.text}")
+
+        # Sleep for random seconds before making the next request
+        sleep_time = random.randint(15, 60)
+        print(f"Waiting {sleep_time} seconds before next request")
+        time.sleep(sleep_time)
+        
 
 if __name__ == "__main__":
     main()
