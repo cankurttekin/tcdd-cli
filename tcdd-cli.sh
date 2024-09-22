@@ -16,28 +16,26 @@ cat << "EOF"
                                                                                                                                                                   
 EOF
     echo "Tren API Sorgu CLI Aracı"
-    echo "BU YAZILIMIN TÜRKİYE CUMHURİYETİ VE TÜRKİYE CUMHURİYETİ DEVLET DEMİRYOLLARI İLE HERHANGİ BİR İLİŞKİSİ YOKTUR."
+    echo "BU YAZILIMIN TÜRKİYE CUMHURİYETİ DEVLET DEMİRYOLLARI İLE HERHANGİ BİR İLİŞKİSİ YOKTUR."
     echo ""
-    echo "Turkish Train API Query CLI Tool"
-    echo "THIS IS NOT AN OFFICIAL SOFTWARE AND HAS NO AFFILIATION WITH THE REPUBLIC OF TURKIYE OR THE STATE RAILWAYS OF THE REPUBLIC OF TURKIYE."
+    echo "Turkish Train API CLI Tool"
+    echo "THIS IS NOT AN OFFICIAL SOFTWARE AND HAS NO AFFILIATION WITH THE STATE RAILWAYS OF THE REPUBLIC OF TURKIYE."
     echo ""
 }
 
 # Function to prompt for parameters
 prompt_parameters() {
-    read -p "Enter departure station / Kalkış istasyonunu girin: " binisIstasyonu
-    read -p "Enter arrival station / Varış istasyonunu girin: " inisIstasyonu
-    read -p "Enter departure station ID / Kalkış istasyonu ID girin: " binisIstasyonId
-    read -p "Enter arrival station ID / Varış istasyonu ID girin: " inisIstasyonId
+    # Prompt for departure date
     read -p "Enter departure date and time (YYYY-MM-DDTHH:MM:SS) / Kalkış tarihini ve saati girin (YYYY-AA-GGTSsaat:dk:sn): " gidisTarih
+
+    # Run Python script to fetch station list and allow user to select stations
+    echo "Fetching station list from TCDD API..."
+    python3 train.py "$gidisTarih"
 }
 
 main() {
     print_logo
     prompt_parameters
-
-    # Make API request with provided parameters
-    python3 train.py "$binisIstasyonu" "$inisIstasyonu" "$binisIstasyonId" "$inisIstasyonId" "$gidisTarih"
 }
 
 main
