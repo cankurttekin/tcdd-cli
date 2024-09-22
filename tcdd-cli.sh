@@ -3,20 +3,22 @@
 print_logo() {
 cat << "EOF"
                                                                        
- /$$$$$$$$/$$$$$$  /$$$$$$$  /$$$$$$$         /$$$$$$  /$$      /$$$$$$
-|__  $$__/$$__  $$| $$__  $$| $$__  $$       /$$__  $$| $$     |_  $$_/
-   | $$ | $$  \__/| $$  \ $$| $$  \ $$      | $$  \__/| $$       | $$  
-   | $$ | $$      | $$  | $$| $$  | $$      | $$      | $$       | $$  
-   | $$ | $$      | $$  | $$| $$  | $$      | $$      | $$       | $$  
-   | $$ | $$    $$| $$  | $$| $$  | $$      | $$    $$| $$       | $$  
-   | $$ |  $$$$$$/| $$$$$$$/| $$$$$$$/      |  $$$$$$/| $$$$$$$$/$$$$$$
-   |__/  \______/ |_______/ |_______/        \______/ |________/______/
-                                                                        
+  ████████╗ ██████╗██████╗ ██████╗      ██████╗██╗     ██╗
+  ╚══██╔══╝██╔════╝██╔══██╗██╔══██╗    ██╔════╝██║     ██║
+     ██║   ██║     ██║  ██║██║  ██║    ██║     ██║     ██║
+     ██║   ██║     ██║  ██║██║  ██║    ██║     ██║     ██║
+     ██║   ╚██████╗██████╔╝██████╔╝    ╚██████╗███████╗██║
+     ╚═╝    ╚═════╝╚═════╝ ╚═════╝      ╚═════╝╚══════╝╚═╝
+                                                        
 EOF
     echo "	Disclaimer: This is not an official software and has no affiliation with the State Railways Of The Republic of Turkiye."
     echo "	Bilgilendirme: Türkiye Cumhuriyeti Devlet Demiryolları ile herhangi bir ilişkisi yoktur."
     echo ""
     echo "	Interrupt to exit (CTRL+C)"
+    echo ""
+    echo "https://github.com/cankurttekin/tcdd-cli"
+    echo "License: GNU GENERAL PUBLIC LICENSE Version 3"
+    echo ""
     echo ""
 }
 
