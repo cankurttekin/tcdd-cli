@@ -9,6 +9,6 @@ chmod +x tcdd-cli.sh
 ```
 
 # TO DO
-- Implement a way to include station ID's.
+- ~~Implement station and id lookup.~~
 - Run it in the background and get notified when there's an empty seat available for desired destination and time.
 - Make it prettier.
