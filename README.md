@@ -10,5 +10,5 @@ chmod +x tcdd-cli.sh
 
 # TO DO
 - ~~Implement station and id lookup.~~
-- Run it in the background and get notified when there's an empty seat available for desired destination and time.
-- Make it prettier.
+- Run it in the background and ~~get notified when there's an empty seat available for desired destination and time.~~
+- Make it prettier. ~~> kinda??~~
