@@ -4,6 +4,7 @@ from datetime import datetime
 import time
 import os
 import random
+import sys
 
 class TCDDAPIClient:
     def __init__(self):
@@ -75,8 +76,14 @@ def parse_args():
     return parser.parse_args()
 
 def notify_user():
-    print("\a")  # Trigger beep sound
-    print(">>>>>>>>>>>>Seats available!")
+    # Using Terminal ASCII BEL
+    #print("\a")  # beep
+    for _ in range(3):
+        print("\a", end='', flush=True)
+        sys.stdout.flush()  # Force the output to be sent to the terminal
+        for _ in range(1000000): pass  # Dummy loop for a minimal delay to play multiple beeps
+    print("\033[1m\033[31m »»»»»»»» Seats available! \033[0m")
+    #print("»»»»»»»» Seats available!")
     
 def main():
     args = parse_args()
@@ -119,7 +126,7 @@ def main():
                         #kalan_sayi = vagon.get("kalanSayi")
                         if empty_seat_count > 0:
                             notify_user()
-                            print(f"Date: {departure_date}, Seats: {empty_seat_count}, Disabled: {disabled_seat_count}, Business: {business_seat_count} ")
+                            print(f"{departure_date} -- Seats: {empty_seat_count}, Disabled: {disabled_seat_count}, Business: {business_seat_count} ")
                             
             else:
                 print("No trip found.")
@@ -128,8 +135,8 @@ def main():
             print(f"Response: {response.text}")
 
         # Sleep for random seconds before making the next request
-        sleep_time = random.randint(1, 60)
-        print(f"============Waiting {sleep_time} seconds before next request============")
+        sleep_time = random.randint(8, 60)
+        print(f"\n\n════════════════════Waiting {sleep_time} seconds before next request════════════════════\n")
         time.sleep(sleep_time)
 
 if __name__ == "__main__":
