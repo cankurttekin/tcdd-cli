@@ -63,7 +63,8 @@ class TCDDAPIClient:
 
 def display_stations(stations):
     for i, station in enumerate(stations, 1):
-        print(f"{i}. {station['istasyonAdi']}, {station['stationViewName']} (ID: {station['istasyonId']})")
+        #print(f"{i}. {station['istasyonAdi']}, {station['stationViewName']}")
+        print(f"{i}. {station['stationViewName']}")
 
 def select_station(stations, prompt):
     display_stations(stations)
@@ -75,15 +76,32 @@ def parse_args():
     parser.add_argument("departure_date_input", help="Departure date and time in format 'YYYY-MM-DDTHH:MM:SS'")
     return parser.parse_args()
 
-def notify_user():
+def notify_user(departure_date, arrival_date, economy_seat_count, economy_price, disabled_seat_count, business_seat_count, business_price):
     # Using Terminal ASCII BEL
     #print("\a")  # beep
     for _ in range(2):
         print("\a", flush=True)
         sys.stdout.flush()  # Force the output to be sent to the terminal
         for _ in range(1000000): pass  # Dummy loop for a minimal delay to play multiple beeps
-    print("\033[1m\033[31m »»» Seats available: \033[0m")
+    print("\033[1m\033[31m »»» Seats available for: \033[0m")
+    print(f"{departure_date} ———→ {arrival_date}: "
+                                + f"\n\tEconomy: {economy_seat_count} [TRY {economy_price}]" 
+                                + f"\n\tDisabled: {disabled_seat_count} "
+                                + f"\n\tBusiness: {business_seat_count} [TRY {business_price}]")
     #print("»»»»»»»» Seats available!")
+    
+def prompt_seat_type():
+    print("Which seat type would you like to track?")
+    print("1. Economy")
+    print("2. Business")
+    choice = input("Enter the number of your choice: ")
+    if choice == "1":
+        return "Economy"
+    elif choice == "2":
+        return "Business"
+    else:
+        print("Invalid choice. Defaulting to Economy.")
+        return "Economy"
     
 def main():
     args = parse_args()
@@ -99,6 +117,8 @@ def main():
     departure = select_station(stations, "Departure station")
     print("\nSelect arrival station:")
     arrival = select_station(stations, "Arrival station")
+    
+    seat_type = prompt_seat_type()  # Prompt user to select seat type
     
     # Continuous loop to keep checking for available seats
     while True:
@@ -116,18 +136,38 @@ def main():
             if trip_list is not None:
                 for trip in trip_list:
                     #available_empty_seats = 0
+                    # REFACTOR THESE LINES LATER : CODE REPEAT
                     departure_date = trip.get("binisTarih")
-                    vagon_tipleri = trip.get("vagonTipleriBosYerUcret", [])
+                    departure_date = datetime.strptime(departure_date, "%b %d, %Y %I:%M:%S %p") # Parse the string into a datetime object
+                    departure_date = departure_date.strftime("%b %d, %H:%M") # remove year and format to 24 hour
+                    
+                    arrival_date = trip.get("inisTarih")
+                    arrival_date = datetime.strptime(arrival_date, "%b %d, %Y %I:%M:%S %p") # Parse the string into a datetime object
+                    arrival_date = arrival_date.strftime("%H:%M") # remove year and format to 24 hour
+                    
+                    economy_seat_count = 0
+                    disabled_seat_count = 0
+                    business_seat_count = 0
+                    economy_price = 0
+                    business_price = 0
+                    vagon_tipleri = trip.get("vagonTipleriBosYerUcret")
                     for vagon in vagon_tipleri:
-                        disabled_seat_count = vagon.get("kalanEngelliKoltukSayisi", 0)
-                        business_seat_count = vagon.get("kalanYatakSayisi", 0)
-                        empty_seat_count = vagon.get("kalanSayi", 0) - disabled_seat_count - business_seat_count
-
-                        #kalan_sayi = vagon.get("kalanSayi")
-                        if empty_seat_count > 0:
-                            notify_user()
-                            print(f"{departure_date} -- Seats: {empty_seat_count}, Disabled: {disabled_seat_count}, Business: {business_seat_count} ")
-                            
+                        # Check if it's an economy wagon 2+2 Pulman (Ekonomi) or 17002
+                        if ("Ekonomi" in vagon.get("vagonTip")) or (vagon.get("vagonTipId") == 17002):
+                            disabled_seat_count += vagon.get("kalanEngelliKoltukSayisi")
+                            economy_seat_count += vagon.get("kalanSayi") - disabled_seat_count
+                            economy_price = int(vagon.get("standartBiletFiyati"))
+                        # Check if business
+                        elif ("Business" in vagon.get("vagonTip")) or (vagon.get("vagonTipId") == 17001):
+                            business_seat_count += vagon.get("kalanSayi")
+                            business_price = int(vagon.get("standartBiletFiyati"))
+                    
+                    # Notify user if there are available seats based on user-selected seat type
+                    if economy_seat_count > 0 and seat_type == "Economy":
+                        notify_user(departure_date, arrival_date, economy_seat_count, economy_price, disabled_seat_count, business_seat_count, business_price)
+                    elif business_seat_count > 0 and seat_type == "Business":
+                        notify_user(departure_date, arrival_date, economy_seat_count, economy_price, disabled_seat_count, business_seat_count, business_price)
+                    
             else:
                 print("No trip found.")
         else:
@@ -135,10 +175,9 @@ def main():
             print(f"Response: {response.text}")
 
         # Sleep for random seconds before making the next request
-        sleep_time = random.randint(8, 60)
-        #print(f"\n\n═════════════════Waiting {sleep_time} seconds before next request═════════════════\n")
+        sleep_time = random.randint(4, 42)
         
-        # ANSI escape codes
+        # ANSI
         bg_color = "\033[40m"  # Black background
         fg_color = "\033[37m"  # White text
         message = f"\n### Waiting {sleep_time} seconds before next request"
