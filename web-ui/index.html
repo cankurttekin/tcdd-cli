@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>TCDD-CLI Web</title>
+</head>
+<body>
+    <h1>TCDD-CLI Web</h1>
+    <form id="configForm">
+        <div>
+            <label for="binisIstasyonAdi">Departure Station:</label>
+            <select id="binisIstasyonAdi"></select>
+        </div>
+        <div>
+            <label for="inisIstasyonAdi">Arrival Station:</label>
+            <select id="inisIstasyonAdi"></select>
+        </div>
+        <div>
+            <label for="date">Date:</label>
+            <input type="date" id="date" value="2024-05-15">
+        </div>
+        <div id="hourContainer" style="display: block;">
+            <label for="hour">Trips:</label>
+            <div id="hourChoices"></div>
+        </div>
+        <div>
+            <label for="seatType">Seat Type:</label>
+            <select id="seatType">
+                <option value="economy">Economy</option>
+                <option value="business">Business</option>
+            </select>
+        </div>
+        <button type="button" id="find-seat-button" onclick="startSearch()">Start</button>
+        <div id="log"></div>
+        <div>
+          <label>Status:</label>
+          <p id="status"></p>
+        </div>
+        <div>
+            <p id="delayMessage"></p>
+        </div>
+    </form>
+    <script src="app.js"></script>
+    
+    <footer>
+        <div style="text-align: center; padding: 20px;">
+            <p>
+                <a href="https://github.com/cankurttekin/tcdd-cli" target="_blank">GitHub</a> |
+                <a href="https://www.gnu.org/licenses/gpl-3.0.en.html#license-text" target="_blank">GPLv3</a>
+            </p>
+            <p>This is not an official software from TCDD and has no affiliation with the State Railways Of The Republic of Turkiye.</p>
+        </div>
+    </footer>
+</body>
+</html>
+
