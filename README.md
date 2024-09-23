@@ -8,7 +8,6 @@ Let's you choose date, stations and goes to loop to fetch empty seats and notify
 It uses ASCII BEL to notify when seats available so if you disabled terminal bell sound and want to get audio feedback you may need to enable it.
 
 ## Usage
-clone repository
 ```
 # Clone repository to any directory
 git clone https://github.com/cankurttekin/tcdd-cli.git
