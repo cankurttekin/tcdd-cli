@@ -136,7 +136,14 @@ def main():
 
         # Sleep for random seconds before making the next request
         sleep_time = random.randint(8, 60)
-        print(f"\n\n═════════════════Waiting {sleep_time} seconds before next request═════════════════\n")
+        #print(f"\n\n═════════════════Waiting {sleep_time} seconds before next request═════════════════\n")
+        
+        # ANSI escape codes
+        bg_color = "\033[40m"  # Black background
+        fg_color = "\033[37m"  # White text
+        message = f"\n### Waiting {sleep_time} seconds before next request"
+        formatted_message = f"{bg_color}{fg_color}{message:}\033[0m"
+        print(formatted_message + "\n")
         time.sleep(sleep_time)
 
 if __name__ == "__main__":
