@@ -67,22 +67,22 @@ def display_stations(stations):
 
 def select_station(stations, prompt):
     display_stations(stations)
-    choice = int(input(f"{prompt} (Enter number): ")) - 1
+    choice = int(input(f"\n{prompt} (Enter number): \n» ")) - 1
     return stations[choice]
     
 def parse_args():
     parser = argparse.ArgumentParser(description="An application to query TCDD API")
-    parser.add_argument("gidisTarih", help="Departure date and time in format 'YYYY-MM-DDTHH:MM:SS'")
+    parser.add_argument("departure_date_input", help="Departure date and time in format 'YYYY-MM-DDTHH:MM:SS'")
     return parser.parse_args()
 
 def notify_user():
     # Using Terminal ASCII BEL
     #print("\a")  # beep
-    for _ in range(3):
-        print("\a", end='', flush=True)
+    for _ in range(2):
+        print("\a", flush=True)
         sys.stdout.flush()  # Force the output to be sent to the terminal
         for _ in range(1000000): pass  # Dummy loop for a minimal delay to play multiple beeps
-    print("\033[1m\033[31m »»»»»»»» Seats available! \033[0m")
+    print("\033[1m\033[31m »»» Seats available: \033[0m")
     #print("»»»»»»»» Seats available!")
     
 def main():
@@ -107,7 +107,7 @@ def main():
             arrival["istasyonAdi"],
             departure["istasyonId"],
             arrival["istasyonId"],
-            args.gidisTarih
+            args.departure_date_input
         )
 
         if response.status_code == 200:
@@ -136,7 +136,7 @@ def main():
 
         # Sleep for random seconds before making the next request
         sleep_time = random.randint(8, 60)
-        print(f"\n\n════════════════════Waiting {sleep_time} seconds before next request════════════════════\n")
+        print(f"\n\n═════════════════Waiting {sleep_time} seconds before next request═════════════════\n")
         time.sleep(sleep_time)
 
 if __name__ == "__main__":

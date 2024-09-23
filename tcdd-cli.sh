@@ -25,13 +25,14 @@ EOF
 # Function to prompt for parameters
 prompt_parameters() {
     # Prompt for departure date
-    read -p "Enter departure date (ex. 2024-09-23): " gidisTarih
-
-    gidisTarih="${gidisTarih}T00:00:00"
+    echo "Enter departure date (ex. 2024-09-23): "
+    read -p "» " departure_date_input
+	
+    departure_date_input="${departure_date_input}T00:00:00"
     
     # Fetch station list and allow user to select stations
     echo "Fetching station list from TCDD API..."
-    python3 train.py "$gidisTarih"
+    python3 train.py "$departure_date_input"
 }
 
 main() {
