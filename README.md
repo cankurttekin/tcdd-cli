@@ -1,5 +1,7 @@
 # tcdd-cli
-Get Number of Empty Seats from Turkish Train API
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+<br>
+This tool helps you to find an empty seat in Turkish Railways by making requests to TCDD API. 
 
 <img src="/demo.png" alt="img" align="center" width=90%>
 
