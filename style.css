@@ -131,7 +131,7 @@ button:hover {
     display: grid;
     padding: 10px;
     background: #fafafa;
-    border-top: 3px solid #e0e0e0;
+    border-top: 2px solid #e0e0e0;
     border-radius: 0 0 16px 16px;
     
     margin: 0 -20px -20px -20px;
