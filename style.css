@@ -1,6 +1,6 @@
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
+    background-color: #fafafa;
     margin: 0;
     padding: 20px;
     justify-content: center;
@@ -9,51 +9,74 @@ body {
     height: 100vh;
 }
 
-/* Styling for the main heading */
 h1 {
     text-align: center;
-    color: #333;
+    color: #323232;
+    font-weight: bold;
 }
 
-/* Form styling */
+p { 
+  color: rgba(0, 0, 0, 0.5); 
+}
+
+#delayMessage {
+  font-size: 14px;
+}
+
+a { 
+  color: #444; 
+  font-weight: bold;
+  text-decoration: none;
+}
+
+a:hover { 
+  text-decoration: underline; 
+}
+
 form {
-    background: white;
+    background: #ebebeb;
     max-width: 600px;
     margin: 20px auto;
     padding: 20px;
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
+    border-radius: 16px;
+    border: 2px solid #e8e8e8;
 }
 
-/* Division styling */
 form div {
     margin-bottom: 10px;
 }
 
-/* Label styling */
 label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 2px;
     font-weight: bold;
 }
 
-/* Input and select field styling */
-input[type="date"],
-input[type="time"],
-input[type="number"],
+input[type="date"] {
+  width: 100%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border: 2px solid #e8e8e8;
+    border-radius: 16px;
+}
+
 select {
     width: 100%;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    border: 2px solid #e8e8e8;
+    border-radius: 16px;
+    padding: 20px;
+    background: white;
 }
+
+
 
 input[type="checkbox"] {
     margin-right: 5px;
 }
 
-/* Button styling */
 button {
-    background-color: #333;
+    background-color: #3584e4;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -61,41 +84,37 @@ button {
     cursor: pointer;
     border-radius: 10px;
     width: 100%;
+    margin-bottom: 18px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
 button:hover {
-    background-color: #555;
+    background-color: #4990e7;
 }
 
-/* Utility classes for hidden elements */
 .hidden {
     display: none;
 }
 
-/* Style container for hour choices */
 #hourChoices {
     display: grid;
     padding: 10px;
-    background: #f9f9f9;
-    border: 1px solid #dde;
-    border-radius: 5px;
+    background: #f7f7f7;
+    border: 2px solid #e8e8e8;
+    border-radius: 16px;
 }
 
-/* Style each checkbox wrapper for better spacing and alignment */
 #hourChoices div {
     display: flex;
     flex-direction: row;
 
 }
 
-/* Style checkboxes */
 #hourChoices input[type="checkbox"] {
     cursor: pointer;
-    accent-color: #3498dd;
+    accent-color: #cce0f8;
 }
 
-/* Style labels for better readability and interaction */
 #hourChoices label {
     cursor: pointer;
     user-select: none;
@@ -104,12 +123,23 @@ button:hover {
     font-weight: 100;
 }
 
-/* Hover effects for labels and checkboxes */
 #hourChoices div:hover {
     background-color: #efefef;
 }
 
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+#statusContainer {
+    display: grid;
+    padding: 10px;
+    background: #fafafa;
+    border-top: 3px solid #e0e0e0;
+    border-radius: 0 0 16px 16px;
+    
+    margin: 0 -20px -20px -20px;
+}
+
+
+.footer {
+  width: 100%;
+  margin-top: 200px;
+  text-align: center;
 }

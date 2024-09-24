@@ -22,7 +22,7 @@
             <input type="date" id="date" value="2024-05-15">
         </div>
         <div id="hourContainer" style="display: block;">
-            <label for="hour">Trips:</label>
+            <label for="hour">Trip Hours:</label>
             <div id="hourChoices"></div>
         </div>
         <div>
@@ -32,27 +32,35 @@
                 <option value="business">Business</option>
             </select>
         </div>
-        <button type="button" id="find-seat-button" onclick="startSearch()">Start</button>
+        <button type="button" id="start-search-button" onclick="startSearch()">Start</button>
+        <div id="statusContainer">
         <div id="log"></div>
-        <div>
-          <label>Status:</label>
-          <p id="status"></p>
-        </div>
-        <div>
-            <p id="delayMessage"></p>
+          <div>
+            <label>Status:</label>
+            <p id="status"></p>
+          </div>
+          <div>
+              <p id="delayMessage"></p>
+          </div>
         </div>
     </form>
     <script src="app.js"></script>
     
-    <footer>
-        <div style="text-align: center; padding: 20px;">
+        <div class="footer">
+            
+            <p style="font-size: 14px;">
+               TCDD-CLI is a tool on your terminal or browser that aims to
+               help you finding empty seats at
+               Turkish Railways. 
+            </p>
             <p>
-                <a href="https://github.com/cankurttekin/tcdd-cli" target="_blank">GitHub</a> |
+                <a href="https://github.com/cankurttekin/tcdd-cli" target="_blank">Source</a> ─
                 <a href="https://www.gnu.org/licenses/gpl-3.0.en.html#license-text" target="_blank">GPLv3</a>
             </p>
-            <p>This is not an official software from TCDD and has no affiliation with the State Railways Of The Republic of Turkiye.</p>
+            <p style="font-size: 14px;">
+              Disclaimer: This is not an official software from TCDD and has no affiliation with the State Railways Of The Republic of Turkiye.
+            </p>
         </div>
-    </footer>
 </body>
 </html>
 

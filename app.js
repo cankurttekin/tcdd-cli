@@ -15,8 +15,8 @@ var config = {
     binisIstasyonAdi: "Eskişehir",
     inisIstasyonAdi: "Ankara Gar",
     date: "2024-09-23",
-    hour: "19:35 - 20:53",
-    seatType: "Economy"
+    hour: "19:29 - 20:50",
+    seatType: "economy"
 };
 
 function postRequest(url, body) {
@@ -55,13 +55,11 @@ async function loadStations() {
     return stationsData;
 }
 
-
 function formatDate(date) {
     const parsedDate = new Date(date);
     const options = { month: 'short', day: 'numeric', year: 'numeric' };
     return parsedDate.toLocaleDateString('en-US', options);
 }
-
 
 loadStations();
 const stations = stationsData;
@@ -142,7 +140,8 @@ document.addEventListener('DOMContentLoaded', async function() {
     const stationsData = await loadStations();
     const binisSelect = document.getElementById('binisIstasyonAdi');
     const inisSelect = document.getElementById('inisIstasyonAdi');
-
+    const seatType = document.getElementById('seatType');
+    
     Object.keys(stationsData).forEach(stationName => {
         const option = new Option(stationName, stationName);
         binisSelect.options.add(option);
@@ -151,8 +150,8 @@ document.addEventListener('DOMContentLoaded', async function() {
     binisSelect.value = config.binisIstasyonAdi;
     inisSelect.value = config.inisIstasyonAdi;
     seatType.value = config.seatType;
+    
     var todaysDate = new Date();
-
     var day = String(todaysDate.getDate()).padStart(2, '0');
     var month = String(todaysDate.getMonth() + 1).padStart(2, '0');
     var year = todaysDate.getFullYear();
@@ -174,8 +173,9 @@ async function prefetchForHours() {
         binisIstasyonAdi: document.getElementById('binisIstasyonAdi').value,
         inisIstasyonAdi: document.getElementById('inisIstasyonAdi').value,
         date: document.getElementById('date').value,
+        seatType: document.getElementById('seatType').value
     };
-    console.log('Configuration updated:', config);
+    console.log('Form updated: ', config);
     const body = {
         kanalKodu: 3,
         dil: 0,
@@ -250,10 +250,11 @@ async function startSearch(){
         binisIstasyonAdi: document.getElementById('binisIstasyonAdi').value,
         inisIstasyonAdi: document.getElementById('inisIstasyonAdi').value,
         date: document.getElementById('date').value,
+        seatType: document.getElementById('seatType').value
     };
 
     const selectedHours = getTripHours();
-    if (selectedHours.length == 0) { alert("Please select one or more hours"); return; }
+    if (selectedHours.length == 0) { alert("Please select trip hours to search. "); return; }
 
     while (!found) {
         //document.getElementById("status").innerHTML += 'Searching...<br />';
