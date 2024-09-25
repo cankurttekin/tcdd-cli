@@ -1,3 +1,21 @@
+/* app.js
+ *
+ * TCDD-CLI is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * TCDD-CLI is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with TCDD-CLI.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * License: GPL-3.0
+ */
+ 
 const api_url = "https://api-yebsp.tcddtasimacilik.gov.tr";
 const trips_endpoint = "/sefer/seferSorgula";
 const stations_endpoint = "/istasyon/istasyonYukle";
@@ -141,7 +159,7 @@ function checkTrip(trip) {
                         += `<br/><span style="color:Tomato;"><b> »»» Economy seats available for:</b></span><br/>
                         ${tripDate}, ${tripTime}:<br/>
                         &emsp;&emsp;💺 <b>Economy: ${economy_seat_count}</b><br/>
-                        &emsp;&emsp;🛄 Business: ${business_seat_count} <br/>
+                        &emsp;&emsp;🛄 Business: ${business_seat_count}<br/>
                         &emsp;&emsp;♿ Disabled: ${disabled_seat_count}<br/>`;
         found = true;
         audio.play();
