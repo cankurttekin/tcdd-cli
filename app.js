@@ -31,7 +31,7 @@ function postRequest(url, body) {
 
 async function loadStations() {
     if (Object.keys(stationsData).length === 0) {
-        document.getElementById("status").innerHTML = "Fetching stations... " + "<br />";
+        document.getElementById("status").innerHTML = "Fetching stations..." + "<br />";
         const url = api_url + stations_endpoint;
         const body = {
             "kanalKodu": "3",
@@ -47,7 +47,7 @@ async function loadStations() {
                 return acc;
             }, {});
             console.log('Stations are updated.');
-            document.getElementById("status").innerHTML = "Stations loaded. " + "<br />";
+            document.getElementById("status").innerHTML = "Stations loaded." + "<br />";
         } else {
             console.error('Failed to fetch stations: ', response);
         }
@@ -129,10 +129,31 @@ function checkTrip(trip) {
             business_seat_count += vagon.kalanSayi;
         }
     });
+    
+    const tripDateTime = new Date(trip.binisTarih);
+    const depart = tripDateTime.toTimeString().substring(0, 5);
+    const arrive = new Date(trip.inisTarih).toTimeString().substring(0, 5);
+    const tripTime = depart + " ———> " + arrive;
+    const tripDate = tripDateTime.toDateString().substring(0, 10);
+    
     if (seatType === "economy" && economy_seat_count > 0) {
-        document.getElementById("status").innerHTML = `Seats Available for: ${trip.binisTarih}  💺:${economy_seat_count} ♿:${disabled_seat_count} 🛄:${business_seat_count} <br/>`;
+        document.getElementById("status").innerHTML 
+                        += `<br/><span style="color:Tomato;"><b> »»» Economy seats available for:</b></span><br/>
+                        ${tripDate}, ${tripTime}:<br/>
+                        &emsp;&emsp;💺 <b>Economy: ${economy_seat_count}</b><br/>
+                        &emsp;&emsp;🛄 Business: ${business_seat_count} <br/>
+                        &emsp;&emsp;♿ Disabled: ${disabled_seat_count}<br/>`;
         found = true;
-    audio.play();
+        audio.play();
+    } else if (seatType === "business" && business_seat_count > 0) {
+	    document.getElementById("status").innerHTML 
+	                    += `<br/><span style="color:Tomato;"><b>Business seats available for:</b></span><br/>
+	                    ${tripDate}, ${tripTime}:<br/>
+	                    &emsp;&emsp;🛄 <b>Business: ${business_seat_count}</b><br/>
+	                    &emsp;&emsp;💺 Economy: ${economy_seat_count}<br/> 
+                        &emsp;&emsp;♿ Disabled: ${disabled_seat_count}<br/> `;
+        found = true;
+        audio.play();
     }
 }
 
