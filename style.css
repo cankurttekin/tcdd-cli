@@ -1,18 +1,12 @@
 body {
     font-family: 'Cantarell', sans-serif;
     background-color: #fafafa;
-    margin: 0;
-    /*padding: 20px;*/
+    margin: 0px;
+    padding: 20px;
     justify-content: center;
     align-items: center;
     color: #444;
     height: 100vh;
-}
-
-h1 {
-    text-align: center;
-    color: #323232;
-    font-weight: bold;
 }
 
 p { 
@@ -143,6 +137,7 @@ button:hover {
 
 .site-header {
     padding: 20px;
+    padding-top: 0px;
     display: flex;
     justify-content: center;
 }
@@ -155,18 +150,19 @@ button:hover {
 .logo {
     width: 128px;
     height: auto;
-    margin-right: 28px;
+    margin-right: 26px;
 }
 
 .site-title {
-    font-size: 2.2rem;
-    color: #333;
+    font-size: 2.1rem;
+    color: #323232;
     font-weight: 900;
 }
 
 .line-container {
-    margin-top: 0px;
+    padding-top: 20px;
     padding-bottom: 20px;
+margin: -20px;
 }
 
 .blue-line {
