@@ -127,7 +127,6 @@ async function fetchTrips() {
         });
     }
     if (!found) { 
-        //document.getElementById("status").innerHTML = ''
         document.getElementById("status").innerHTML += '.';
     }
 }
@@ -240,7 +239,7 @@ async function prefetchForHours() {
         updateHourDropdown(response.seferSorgulamaSonucList);
     } else {
         const hourContainer = document.getElementById('hourChoices');
-        hourContainer.innerHTML = "Station pair does not have any available trip.<br/>Check your preferences and try again.";
+        hourContainer.innerHTML = "Couldn't find any trip on the given route.";
     }
 }
 
@@ -254,7 +253,7 @@ function updateHourDropdown(trips) {
         const arrivalTime = new Date(trips.inisTarih).toTimeString().substring(0, 5);
         const tripTime = departureTime + " - " + arrivalTime;
         return tripTime
-    }).sort((a, b) => a.localeCompare(b)); // Sort times
+    }).sort((a, b) => a.localeCompare(b));
 
     [...new Set(times)].forEach(time => {
         const checkbox = document.createElement('input');
