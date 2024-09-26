@@ -1,8 +1,8 @@
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Cantarell', sans-serif;
     background-color: #fafafa;
     margin: 0;
-    padding: 20px;
+    /*padding: 20px;*/
     justify-content: center;
     align-items: center;
     color: #444;
@@ -69,14 +69,12 @@ select {
     background: white;
 }
 
-
-
 input[type="checkbox"] {
     margin-right: 5px;
 }
 
 button {
-    background-color: #3584e4;
+    background-color: #de2619;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -89,7 +87,7 @@ button {
 }
 
 button:hover {
-    background-color: #4990e7;
+    background-color: #c82333;
 }
 
 .hidden {
@@ -137,9 +135,49 @@ button:hover {
     margin: 0 -20px -20px -20px;
 }
 
-
 .footer {
   width: 100%;
   margin-top: 200px;
   text-align: center;
+}
+
+.site-header {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 128px;
+    height: auto;
+    margin-right: 28px;
+}
+
+.site-title {
+    font-size: 2.2rem;
+    color: #333;
+    font-weight: 900;
+}
+
+.line-container {
+    margin-top: 0px;
+    padding-bottom: 20px;
+}
+
+.blue-line {
+    width: 100%;
+    height: 16px;
+    background-color: #003aa6;
+}
+
+.red-line {
+    width: 100%;
+    height: 8px;
+    background-color: #de2619;
+    margin-bottom: 5px;
 }

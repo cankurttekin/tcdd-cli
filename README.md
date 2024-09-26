@@ -15,4 +15,5 @@ It uses ASCII BEL to notify when seats available so if you disabled terminal bel
 https://cankurttekin.github.io/tcdd-cli/
 ```
 
+#### Logo inspired from [Railway](https://apps.gnome.org/DieBahn/) app.
 
