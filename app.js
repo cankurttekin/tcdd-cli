@@ -133,6 +133,23 @@ async function fetchTrips() {
 
 var logInner = document.getElementById("log").innerHTML
 
+
+// Request permission for notifications
+document.addEventListener('DOMContentLoaded', function() {
+    if (Notification.permission !== "granted") {
+        Notification.requestPermission();
+    }
+});
+
+function sendNotification(title, body) {
+    if (Notification.permission === "granted") {
+        new Notification(title, {
+            body: body,
+            icon: 'tcdd-cli.png'
+        });
+    }
+}
+
 function checkTrip(trip) {
     let seatType = document.getElementById('seatType').value;
     let disabled_seat_count = 0;
@@ -162,6 +179,7 @@ function checkTrip(trip) {
                         &emsp;&emsp;♿ Disabled: ${disabled_seat_count}<br/>`;
         found = true;
         audio.play();
+        sendNotification('Economy seats available', `${tripDate}, ${tripTime} - Economy: ${economy_seat_count}`);
     } else if (seatType === "business" && business_seat_count > 0) {
 	    document.getElementById("status").innerHTML 
 	                    += `<br/><span style="color:Tomato;"><b>Business seats available for:</b></span><br/>
@@ -171,6 +189,8 @@ function checkTrip(trip) {
                         &emsp;&emsp;♿ Disabled: ${disabled_seat_count}<br/> `;
         found = true;
         audio.play();
+        sendNotification('Business seats available', `${tripDate}, ${tripTime} - Business: ${business_seat_count}`);
+
     }
 }
 
