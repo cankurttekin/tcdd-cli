@@ -135,11 +135,11 @@ var logInner = document.getElementById("log").innerHTML
 
 
 // Request permission for notifications
-document.addEventListener('DOMContentLoaded', function() {
+function notificationPermission() {
     if (Notification.permission !== "granted") {
         Notification.requestPermission();
     }
-});
+}
 
 function sendNotification(title, body) {
     if (Notification.permission === "granted") {
