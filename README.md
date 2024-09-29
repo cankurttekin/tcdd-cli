@@ -3,7 +3,6 @@
 <br>
 This web tool helps you to find an empty seat in Turkish Railways by making requests to TCDD API from your browser. 
 
-<img src="/demo-web.png" alt="img" align="center" width=90%>
 
 ## Features
 Let's you choose date, stations and goes to loop to fetch empty seats and notify when seats > 0.
