@@ -318,8 +318,8 @@ async function startSearch(){
         //document.getElementById("status").innerHTML += 'Searching...<br />';
         await fetchTrips();
         
-        // Sleep for a random time between 8 and 42 seconds
-        await randomSleep(8, 42);
+        // Sleep for a random time between x and y seconds
+        await randomSleep(1, 15);
     }
     for (let i = 0; i < 4; i++) {
         setTimeout(function() {
