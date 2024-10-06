@@ -121,6 +121,9 @@ def main():
     seat_type = prompt_seat_type()  # Prompt user to select seat type
     
     # Continuous loop to keep checking for available seats
+    print(chr(27) + "[2J")
+    #os.system('cls||clear')
+    print(f"\nSearching for: {seat_type} seats from {departure["istasyonAdi"]} to {arrival["istasyonAdi"]} at {args.departure_date_input[0:10]}\n\n\n")
     while True:
         response = client.fetch_trips(
             departure["istasyonAdi"],
@@ -178,11 +181,12 @@ def main():
         sleep_time = random.randint(4, 42)
         
         # ANSI
-        bg_color = "\033[40m"  # Black background
+        bg_color = "\033[42m"  # Black background
         fg_color = "\033[37m"  # White text
-        message = f"\n### Waiting {sleep_time} seconds before next request"
+        message = f"### Waiting {sleep_time} seconds before next request"
         formatted_message = f"{bg_color}{fg_color}{message:}\033[0m"
-        print(formatted_message + "\n")
+        sys.stdout.write(f"\r{formatted_message.replace(str(sleep_time), str(sleep_time))}")
+        sys.stdout.flush()
         time.sleep(sleep_time)
 
 if __name__ == "__main__":
