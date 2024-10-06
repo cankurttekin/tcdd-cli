@@ -123,7 +123,7 @@ def main():
     # Continuous loop to keep checking for available seats
     print(chr(27) + "[2J")
     #os.system('cls||clear')
-    print(f"\nSearching for: {seat_type} seats from {departure["istasyonAdi"]} to {arrival["istasyonAdi"]} at {args.departure_date_input[0:10]}\n\n\n")
+    print(f"\nSearching for: {seat_type} seats from {departure['istasyonAdi']} to {arrival['istasyonAdi']} at {args.departure_date_input[0:10]}\n\n\n")
     while True:
         response = client.fetch_trips(
             departure["istasyonAdi"],
